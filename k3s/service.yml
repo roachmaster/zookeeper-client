@@ -5,8 +5,10 @@ metadata:
   labels:
     app: zookeeper-client
 spec:
+  type: NodePort
   ports:
     - port: 8080
+      nodePort: 30712
       protocol: TCP
       name: zookeeper-client
   selector:
