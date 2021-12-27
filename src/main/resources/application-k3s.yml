@@ -1,3 +1,3 @@
 zookeeper:
-  address: zk-0.zk-cs
-  port: 2181
+  address: ${ZK_CS_SERVICE_HOST}
+  port: ${ZK_CS_SERVICE_PORT}
