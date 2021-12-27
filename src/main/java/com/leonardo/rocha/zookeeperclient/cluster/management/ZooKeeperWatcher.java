@@ -26,7 +26,7 @@ public class ZooKeeperWatcher implements Watcher {
 
     public void run() throws InterruptedException {
         synchronized (zooKeeper) {
-            zooKeeper.wait(10000);
+            zooKeeper.wait();
         }
     }
 
