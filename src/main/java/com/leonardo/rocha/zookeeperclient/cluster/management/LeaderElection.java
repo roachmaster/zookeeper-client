@@ -29,6 +29,7 @@ public class LeaderElection implements Watcher {
 
     public void volunteerForLeadership() throws KeeperException, InterruptedException {
         String znodePrefix = ELECTION_NAMESPACE + "/c_";
+        createElectionZnode();
         String znodeFullPath = zooKeeper.create(znodePrefix,
                 new byte[]{},
                 ZooDefs.Ids.OPEN_ACL_UNSAFE,
@@ -36,6 +37,17 @@ public class LeaderElection implements Watcher {
 
         LOG.info("znode name " + znodeFullPath);
         this.currentZnodeName = znodeFullPath.replace(ELECTION_NAMESPACE + "/", "");
+    }
+
+    private void createElectionZnode() {
+        try {
+            if (zooKeeper.exists(ELECTION_NAMESPACE, false) == null) {
+                LOG.info("Creating {} znode", ELECTION_NAMESPACE);
+                zooKeeper.create(ELECTION_NAMESPACE, new byte[]{}, ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
+            }
+        } catch (KeeperException | InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public void reelectLeader() throws KeeperException, InterruptedException {
