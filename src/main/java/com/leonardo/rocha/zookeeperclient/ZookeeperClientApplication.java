@@ -30,7 +30,5 @@ public class ZookeeperClientApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		leaderElection.volunteerForLeadership();
 		leaderElection.reelectLeader();
-		zooKeeperWatcher.run();
-		zooKeeperWatcher.close();
 	}
 }
